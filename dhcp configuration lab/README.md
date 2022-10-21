@@ -37,5 +37,27 @@ router2(config):
 int g0/0 > no shutdown > ip address 203.0.113.1 255.255.255.252
 
 
+configuring dhcp:
+
+router2(config):
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+ip dhcp excluded-address 192.168.2.1 192.168.2.10
+ip dhcp excluded-address 203.0.113.1
+ip dhcp excluded-address 203.0.113.2
+
+ip dhcp pool POOL1
+router(dhcp-config):
+network 192.168.1.0 255.255.255.0
+dns-server 8.8.8.8
+domain-name assoulsidali1.com
+default-router 192.168.1.1 (R1)
+
+ip dhcp pool POOL2
+network 192.168.2.0 255.255.255.0
+dns-server 8.8.8.8
+domain-name assoulsidali2.com
+default-router 192.168.2.1 (R2)
+
+
 
 
