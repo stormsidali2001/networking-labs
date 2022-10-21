@@ -51,13 +51,18 @@ network 192.168.1.0 255.255.255.0
 dns-server 8.8.8.8
 domain-name assoulsidali1.com
 default-router 192.168.1.1 (R1)
+exit
 
 ip dhcp pool POOL2
 network 192.168.2.0 255.255.255.0
 dns-server 8.8.8.8
 domain-name assoulsidali2.com
 default-router 192.168.2.1 (R2)
+exit
 
+ip dhcp POOL3 
+network 192.168.2.0 255.255.255.252
+exit
 
 
 
