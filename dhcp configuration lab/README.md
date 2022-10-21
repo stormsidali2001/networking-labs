@@ -20,4 +20,21 @@ POOL3:203.0.113.0/30  (preserve .1 )
 
 how to proceed:
 1-setting up the architecture
-2-
+a-go to R2 and type the following commands:
+enable > configure terminal > int g0/1 > no shutdown > ip address 192.168.2.1 255.255.255.0
+
+b-go to R1 and type the following commands:
+enable > configure terminal > int g0/1 > no shutdown > ip address 192.168.1.1 255.255.255.0
+
+note: you can check the stat of the interfaces using the command: do show ip interfaces brief
+c-default gateways
+add 192.168.2.0.1/24 as the default gateway of pc2
+
+add 192.168.1.0.1/24 as the default gateway of pc1
+
+d-configuring the two points network 203.0.113.0/30
+router1(config):
+int 
+
+
+
