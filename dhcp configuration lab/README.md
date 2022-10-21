@@ -100,4 +100,9 @@ router1(config)
 int g0/1
 ip helper-address 203.0.113.1 (ip address of the dhcp server (R1) )
 
+still pc1 is not getting an address :
+well r2 can't route a packet with a destination address 192.168.1.hostId when responding by an offer so we should add the default route:
+ip route 0.0.0.0 0.0.0.0 203.0.113.1
+
 now pc1 can get an ip address
+
