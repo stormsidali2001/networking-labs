@@ -32,3 +32,35 @@ int s2/0
 ip address  14.0.0.2 255.255.255.252
 no shutdown
 
+router0:
+int f0/0
+ip address 12.0.0.1 255.255.255.0
+no shutdown
+
+int s0/3
+ip address  14.0.0.1 255.255.255.252
+no shutdown
+
+int s0/0
+ip address  16.0.0.1 255.255.255.252
+no shutdown
+
+int s0/2
+ip address  18.0.0.1 255.255.255.252
+no shutdown
+
+router2:
+
+int f0/0
+ip address 11.0.0.1 255.255.255.0
+no shutdown
+
+int s0/1
+ip address  18.0.0.2 255.255.255.252
+no shutdown
+
+int s0/0
+ip address  17.0.0.2 255.255.255.252
+no shutdown
+
+
