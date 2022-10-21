@@ -20,3 +20,4 @@ POOL3:203.0.113.0/30  (preserve .1 )
 
 how to proceed:
 1-setting up the architecture
+2-
