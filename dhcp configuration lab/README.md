@@ -98,6 +98,6 @@ note: still pc1 can't get an address right?
 3-configuring r1's g0/1 interface as a relay agent 
 router1(config)
 int g0/1
-ip helper-address 203.0.113.1
+ip helper-address 203.0.113.1 (ip address of the dhcp server (R1) )
 
 now pc1 can get an ip address
