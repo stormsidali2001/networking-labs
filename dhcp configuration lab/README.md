@@ -90,3 +90,14 @@ exit
 //r2 reply with a dhcp offer
 //then r1 sends a dhcp request
 //finally r2 sends a dhcp ack
+
+the r1's interface g0/0 will get the ip address 203.0.113.1/30 from the dhcp server (router1)
+
+note: still pc1 can't get an address right?
+
+3-configuring r1's g0/1 interface as a relay agent 
+router1(config)
+int g0/1
+ip helper-address 203.0.113.1
+
+now pc1 can get an ip address
