@@ -32,9 +32,13 @@ add 192.168.2.0.1/24 as the default gateway of pc2
 
 add 192.168.1.0.1/24 as the default gateway of pc1
 
-d-configuring the two points network 203.0.113.0/30
+d-configuring the two points network 203.0.113.0/30:
+
 router1(config):
-int 
+int g0/0 > no shutdown > ip address 203.0.113.1 255.255.255.252
+router2(config):
+int g0/0 > no shutdown > ip address 203.0.113.1 255.255.255.252
+
 
 
 
