@@ -64,5 +64,18 @@ ip dhcp POOL3
 network 192.168.2.0 255.255.255.252
 exit
 
+note: to show all the dhcp command which you've types use the command:
+do show run | section dhcp
 
+//to check if pc2 can get an address from r2
+go to pc2 command prompt:
+ipconfig  /renew
+the result should be :
+ IP Address......................: 192.168.2.11
+ Subnet Mask.....................: 255.255.255.0
+ Default Gateway.................: 192.168.2.1
+ DNS Server......................: 8.8.8.8
+ 
+ for more details like domain-name ....
+ type: ipconfig /all
 
