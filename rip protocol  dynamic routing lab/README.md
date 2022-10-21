@@ -138,6 +138,29 @@ network 17.0.0.0
 router3(config)
 network 13.0.0.0 > network 15.0.0.0 > network 14.0.0.0
 
+configuring r1 as a dhcp server
+and f0/0 of r0 as relay agents
+router0: int f0/0 > ip helper-address 16.0.0.2 (router1 address (dhcp server) )
+and f0/0 of r2 as relay agents
+router0: int f0/0 > ip helper-address 17.0.0.1 (router1 address (dhcp server) )
 
+ip dhcp excluded-address 10.0.0.1 10.0.0.10
+ip dhcp excluded-address 11.0.0.1 11.0.0.10
+ip dhcp excluded-address 12.0.0.1 12.0.0.10
+ip dhcp pool POOL
+ network 10.0.0.0 255.0.0.0
+ default-router 10.0.0.1
+ dns-server 8.8.8.8
+ domain-name sidali.com
+ip dhcp pool POOL2
+ network 11.0.0.0 255.0.0.0
+ default-router 11.0.0.1
+ dns-server 8.8.8.8
+ domain-name sidali
+ip dhcp pool POOL0
+ network 12.0.0.0 255.0.0.0
+ default-router 12.0.0.1
+ dns-server 8.8.8.8
+ domain-name sidali
 
 
