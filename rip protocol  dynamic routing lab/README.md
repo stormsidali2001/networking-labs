@@ -115,7 +115,29 @@ network address
 router0(config)
 router rip
 version 2 
-no auto-sumary
+no auto-summary
+network 12.0.0.0
+network 18.0.0.0
+network 16.0.0.0
+network 14.0.0.0
+
+router1(config)
+router rip
+version 2 
+no auto-summary
+network 10.0.0.0 > network 15.0.0.0 > network 16.0.0.0 > network 17.0.0.0
+
+router2(config)
+router rip
+verison 2 
+no auto-summary
+network 11.0.0.0
+network 18.0.0.0
+network 17.0.0.0
+
+router3(config)
+network 13.0.0.0 > network 15.0.0.0 > network 14.0.0.0
+
 
 
 
