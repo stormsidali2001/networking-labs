@@ -7,8 +7,8 @@
 * [x] configuring a loop back interface on each router 1.1.1.1/32 for R1 2.2.2.2 for R2 etc...
 * [x] configure ospf on each router (including loopback interfaces)  (do not enable ospf on router1 internet link)
 * [x] configure passive interfaces when appropriate including loopback interfaces.
-* [ ] configure R1 as an ASBR that advertises a default route into the ospf domain
-* [ ] check the routing tables of R2 , R3 and R4 what default routes were added.
+* [x] configure R1 as an ASBR that advertises a default route into the ospf domain
+* [x] check the routing tables of R2 , R3 and R4 what default routes were added.
 
 ### enable routers interfaces && assigning ip addresses to all the interfaces
 >open the router cli and type: **enable** \> **configure terminal** \> then you will be located at : hostname(config)
@@ -97,8 +97,11 @@ ip address 4.4.4.4
 ### configuring ospf
 1. router1:
 ```
+
 router ospf 1
-network 0.0.0.0 255.255.255.255 area 0
+network 10.0.12.0 0.0.0.3 0.0.0.3
+network 10.0.13.0 0.0.0.3 0.0.0.3
+network 1.1.1.1 0.0.0.0 
 passive-interface l0
 ```
 2. router2:
@@ -110,7 +113,9 @@ passive-interface l0
 3. router3:
 ```
 router ospf 3
-network 0.0.0.0 255.255.255.255 area 0
+network 10.0.13.2 0.0.0.0 area 0
+network 10.0.34.1 0.0.0.0 area 0
+network 3.3.3.3 0.0.0.0 area 0
 passive-interface l0
 ```
 4. router4:
@@ -130,11 +135,23 @@ network 0.0.0.0 255.255.255.255 area 0
 passive-interface g0/0
 passive-interface l0
 ```
-> no need to advertise/recieve-updates for the local network and recieve routing updates
+> no need to recieve-updates for the local network and recieve routing updates
 
-> loop back interfaces are connected to nothing so no need to advertisse/recieve-updates
+> loop back interfaces are connected to nothing so no need to recieve-updates
 
-5. if we go to router4 and type:
+### configure R1 as an ASBR that advertises a default route into the ospf domain
+* go router 1 and type 
+```
+ip route 0.0.0.0 0.0.0.0 203.0.113.2 <!-default route-->
+```
+
+```
+router ospf 1
+default-information originate
+```
+### check the routing tables of R2 , R3 and R4 what default routes were added.
+
+ if we go to router4 and type:
 ```
   do show ip route
 
@@ -156,8 +173,45 @@ L       10.0.34.2/32 is directly connected, GigabitEthernet0/0
      192.168.4.0/24 is variably subnetted, 2 subnets, 2 masks
 C       192.168.4.0/24 is directly connected, GigabitEthernet0/2
 L       192.168.4.1/32 is directly connected, GigabitEthernet0/2
-     203.0.113.0/30 is subnetted, 1 subnets
-O       203.0.113.0/30 [110/3] via 10.0.24.1, 00:05:25, GigabitEthernet0/1 
+O       203.0.113.0/30 [110/3] via 10.0.24.1, 00:02:02, GigabitEthernet0/1
+O*E2 0.0.0.0/0 [110/1] via 10.0.24.1, 00:01:55, GigabitEthernet0/1
 ```
 > the routes to all the networks are present on the routing table 
 so ospf worked
+
+>O*E2 // is R1's default route
+
+> if we go to r1 and type: 
+```
+do show ip protocols
+```
+>we will get
+```
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set 
+  Incoming update filter list for all interfaces is not set 
+  Router ID 1.1.1.1
+  It is an autonomous system boundary router 
+   //**asbr: the access point of the autonomous system**
+  Redistributing External Routes from,
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    1.1.1.1 0.0.0.0 area 0
+    10.0.13.0 0.0.0.3 area 0
+    10.0.12.0 0.0.0.3 area 0
+  Passive Interface(s): 
+    Loopback0
+  Routing Information Sources:  
+    Gateway         Distance      Last Update 
+    1.1.1.1              110      00:05:37
+    2.2.2.2              110      00:20:56
+    3.3.3.3              110      00:22:41
+    4.4.4.4              110      00:19:40
+  Distance: (default is 110)
+
+  ```
+
+
+
+
