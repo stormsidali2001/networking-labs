@@ -67,3 +67,25 @@ int G0/2
 ip address 192.168.4.1 255.255.255.0
 no shutdown
 ```
+
+###  configuring  loop back interfaces
+1. router1:
+```
+int l0
+ip address 1.1.1.1
+```
+2. router2:
+```
+int l0
+ip address 2.2.2.2
+```
+3. router3:
+```
+int l0
+ip address 3.3.3.3
+```
+4. router4:
+```
+int l0
+ip address 4.4.4.4
+```
