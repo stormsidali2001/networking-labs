@@ -4,7 +4,7 @@
 * [x] setting up the network structure
   * [x] enable routers interfaces
   * [x] assigning ip addresses to all the interfaces
-* [ ] configuring a loop back interface on each router 1.1.1.1/32 for R1 2.2.2.2 for R2 etc...
+* [x] configuring a loop back interface on each router 1.1.1.1/32 for R1 2.2.2.2 for R2 etc...
 * [ ] configure ospf on each router (including loopback interfaces)  (do not enable ospf on router1 internet link)
 * [ ] configure passive interfaces when appropriate including loopback interfaces.
 * [ ] configure R1 as an ASBR that advertises a default route into the ospf domain
@@ -89,3 +89,8 @@ ip address 3.3.3.3
 int l0
 ip address 4.4.4.4
 ```
+> to show details about some interface we can use the command
+> ```
+> do show int l0
+> ```
+
