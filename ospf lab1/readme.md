@@ -1,7 +1,7 @@
 # Ospf Lab1
 ### Configuration Steps
 
-* [ ] setting up the network structure
+* [x] setting up the network structure
   * [ ] enable routers interfaces
   * [ ] assigning ip addresses to all the interfaces
 * [ ] configuring a loop back interface on each router 1.1.1.1/32 for R1 2.2.2.2 for R2 etc...
