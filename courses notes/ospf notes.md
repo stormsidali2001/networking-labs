@@ -64,3 +64,44 @@ clear ip ospf process  //resetting ospf in router to apply changes
 ```
 (config-router) distance <distance>
 ```
+
+#### OSPF metric (cost)
+1. its calculated as follow :  **reference bandwith** / **interface bandwith**
+> fast ethernet 10 mbps : const = 100 mbps / 10mbs = 10
+> fast ethernet 100 mbps : const = 100 mbps / 100mbs = 1
+> gigabit ethernet 1000 mbps : const = 100 mbps / 1000mbs = 1
+> gigabit ethernet 10000 mbps : const = 100 mbps / 10000mbs = 1
+2. changing the **reference bandwith** 
+```
+auto-cost reference-bandwith <megabit-per-seconds>
+```
+3. displaying an interface ospf cost
+```
+ip ospf interface <interface-name>
+```
+4. example suppose that we 've configured the **reference bandwith** in all routers to be 100000 mbps
+and have a path r1(g0/0)->(g0/0)r2(g1/0)->(g0/0)r4(g1/0)->192.168.4.0/24 network
+whats the cost of the path ? 
+>answer: the same of all **exiting** interfaces of all the routers in the path
+> cost(r1,g0/0) +cost(r2,g1/0) +cost(r4,g1/0)  = 100000/1000 + 100000/1000 + 100000/1000 = 100 + 100 + 100 = 300
+5. what about loopback interfaces : whats r1's cost to reach r2's loopback 0 interface
+> cost(r1,g0/0) + cost(r2,l0) = 100 + 1 = 101 
+> the cost of a loopback interface is : 1
+6. we can set a manual value to an interface ospf cost (takes priority over the auto calculated cost)
+```
+(config-if)# ip ospf cost 10000
+```
+7. to change the interface bandwith (not recommeded , do not affect the speed of the interface):
+```
+bandwith <bandwith in kilobits>
+```
+8. use the following command to display an overview on each ospf interface configured in the router (cost ,ip addr , state, neighbors,area)
+```
+show ip ospf brief
+```
+#### OSPF Neighbors
+1. once routers become neighbors they automatically do the work of sharing network information , calculating routes ...
+2.  when ospf is activated on an interface , the router starts sending ospf ***hello messages** out of the inerface at regular intervals (determined by the hello timer , they are used to introduce the router to potentiel neighbors)
+3.  the default hello timer is 10 seconds on an ethernet connection
+4.  hello messages are multicast to 224.0.0.5 (multicast address for all ospf routers).
+5.  ospf messages are encapsulated in the ip header ,with a value of 89 in the protocol field 
